@@ -50,23 +50,63 @@ var questions = [
     functionReset();
 
 document.getElementById('next-question').addEventLinstener('click', function(event) {
-    fnCheck();
+    funtionCheck();
 });
 
-document.getElementById('checktrue').addEventLinstener('click', function(event) {
-    fnCheck(true);
+document.getElementById('check-true').addEventLinstener('click', function(event) {
+    funtionCheck(true);
 });
 
-document.getElementById('checkfalse').addEventLinstener('click', function(event) {
-    fnCheck(false);
+document.getElementById('check-false').addEventLinstener('click', function(event) {
+    funtionCheck(false);
 });
 
 document.getElementById('next-question').addEventLinstener('click', function(event) {
-    fnNext();
+    funtionNext();
 });
 
 document.getElementById('clear').addEventLinstener('click', function(event) {
-    fnReset();
+    functionReset();
 });
 
 })();
+
+function functionReset() {
+    document.getElementById('question-response').classList.add('hide');
+    document.getElementById('next-question').classList.add('hide');
+    document.getElementById('clear').classList.add('hide');
+    document.getElementById('question-box').classList.add('hide');
+    currentQuestion = 0;
+    document.getElementById('question-text').innerHTML = questions[currentQuestion].question;
+}
+
+function functionNext() {
+    document.getElementById('question-response').classList.add('hide');
+    if (currentQuestion < questions.length - 1) {
+        currentQuestion = currentQuestion + 1;
+        document.getElementById('next-question').classList.add('hide');
+        document.getElementById('clear').classList.add('hide');
+    } else {
+        document.getElementById('next-question').classList.add('hide');
+        document.getElementById('question-box').classList.add('hide');
+        document.getElementById('clear').classList.add('hide');
+    }
+    document.getElementById('question-response').classList.add('hide')
+    document.getElementById('question-text').innerHTML = questions[currentQuestion].question;
+}
+
+function funtionCheck(answer) {
+    document.getElementById('question-response').classList.remove('correct', 'incorrect');
+    var questionAnswer = questions[currentQuestion].answer;
+    if (questions[currentQuestion].answer === answer) {
+        // show if the answer is correct
+        document.getElementById('question-response').classList.add('correct');
+        document.getElementById('question-response').innerHTML = "'Congratiulations! The correct answer is '" + questionAnswer + "'." + questions[currentQuestion].response;
+    } else {
+        // show if the answer is incorrect
+        document.getElementById('question-response').classList.add('incorrect');
+        document.getElementById('question-response').innerHTML = "'Sorry! The correct answer is '" + questionAnswer + "'." + questions[currentQuestion].response;
+    } 
+    document.getElementById('question-response').classList.remove('hide');
+    document.getElementById('next-question').classList.remove('hide');
+}
